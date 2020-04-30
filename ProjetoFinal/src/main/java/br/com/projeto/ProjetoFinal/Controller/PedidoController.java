@@ -49,16 +49,17 @@ public class PedidoController {
 		    	s.setQtdEstoque(s.getQtdEstoque()-1);
 		    	softwareDao.save(s);
 		    }
-		    
-		    Maquina m = novo.getComputador();
-		    m = maquinaDao.findById(m.getId()).get();
-		    m.setQtdEstoque(m.getQtdEstoque()-1);
-		    maquinaDao.save(m);
-		    
+		    if(novo.getComputador()!=null) {
+		    	Maquina m = novo.getComputador();
+		    	m = maquinaDao.findById(m.getId()).get();
+		    	m.setQtdEstoque(m.getQtdEstoque()-1);
+		    	maquinaDao.save(m);
+		    }
 			return ResponseEntity.ok(novo);
 		}
 		catch(Exception e) {
 			// bad request
+			e.printStackTrace();
 			return ResponseEntity.status(400).build();
 		}
 		
